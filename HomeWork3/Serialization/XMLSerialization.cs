@@ -37,13 +37,21 @@ namespace HomeWork3
                 using (FileStream fs = new FileStream("users.xml", FileMode.OpenOrCreate))
                 {
                     XmlSerializer xs = new XmlSerializer(typeof(List<User>));
-                    users = (List<User>)xs.Deserialize(fs);
+                    try
+                    {
+                        users = (List<User>)xs.Deserialize(fs);
+                    }
+                    catch(Exception e)
+                    {
+                        users = new List<User>();
+                    }
                 }
             }            
             return users;
         }
         public void Write(List<User> users)
         {
+            File.WriteAllText("users.xml", "");
             using (FileStream fs = new FileStream("users.xml", FileMode.OpenOrCreate))
             {
                 XmlSerializer xs = new XmlSerializer(typeof(List<User>));

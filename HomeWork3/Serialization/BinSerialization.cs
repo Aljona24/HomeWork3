@@ -37,13 +37,21 @@ namespace HomeWork3
                 {
 
                     BinaryFormatter bf = new BinaryFormatter();
-                    users = (List<User>)bf.Deserialize(fs);
+                    try
+                    {
+                        users = (List<User>)bf.Deserialize(fs);
+                    }
+                    catch (Exception e)
+                    {
+                        users = new List<User>();
+                    }
                 }
             }
             return users;
         }
         public void Write(List<User> users)
         {
+            File.WriteAllText("users.bin", "");
             using (FileStream fs = new FileStream("users.bin", FileMode.OpenOrCreate))
             {
                 BinaryFormatter bf = new BinaryFormatter();
