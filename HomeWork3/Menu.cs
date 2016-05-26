@@ -34,9 +34,16 @@ namespace HomeWork3
                         User u = new User();
                         Console.WriteLine("Создание нового юзера");
                         Console.WriteLine("Введите Id");
+                        
+                        int idNewUser;
+                        if (!Int32.TryParse(Console.ReadLine(), out idNewUser))
+                        {
+                            Console.WriteLine("Id должен состоять только из цифр. Попробуйте еще раз.");
+                            Console.ReadKey();
+                            break;
+                        }                  
 
 
-                        int idNewUser = Convert.ToInt32(Console.ReadLine());
                         User existUser = users.Find(i => i.Id == idNewUser);
                         if (existUser == null)
                         {
@@ -93,25 +100,30 @@ namespace HomeWork3
                                 Console.WriteLine("Юзер с таким id не найден. Попробуйт еще раз.");
                                 Console.ReadKey();
                                 break;
-                            }
-                            else
-                            {
-                                users.Remove(editUser);
-                            }                             
+                            }                            
 
                             Console.WriteLine("Введите новый Id");
-                            editUser.Id = Convert.ToInt32(Console.ReadLine());
+                            int idUser;
+                            if (!Int32.TryParse(Console.ReadLine(), out idUser))
+                            {
+                                Console.WriteLine("Id должен состоять только из цифр. Попробуйте еще раз.");
+                                Console.ReadKey();
+                                break;
+                            }
+                            User newUser = new User();
+                            newUser.Id = idUser;
 
                             Console.WriteLine("Введите новый Name");
-                            editUser.Name = Convert.ToString(Console.ReadLine());
+                            newUser.Name = Convert.ToString(Console.ReadLine());
 
                             Console.WriteLine("Введите новый Login");
-                            editUser.Login = Convert.ToString(Console.ReadLine());
+                            newUser.Login = Convert.ToString(Console.ReadLine());
 
                             Console.WriteLine("Введите новый Password");
-                            editUser.Password = Convert.ToString(Console.ReadLine());
+                            newUser.Password = Convert.ToString(Console.ReadLine());
 
-                            users.Add(editUser);
+                            users.Add(newUser);
+                            users.Remove(editUser);
                             break;
                         }
                     case "HELP":
