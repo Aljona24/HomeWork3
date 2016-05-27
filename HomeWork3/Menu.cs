@@ -142,24 +142,48 @@ namespace HomeWork3
         }
         private ISerializable checkConfigurationFile()
         {
-            while (true)
+            FileInfo fi = new FileInfo("option.ini");
+
+            if (fi.Exists == true)
             {
-                option = File.ReadAllText("option.ini");
-                if (option == "xml")
-                {                    
-                    return new XMLSerializer();
-                }
-                else if (option == "bin")
+                while (true)
                 {
-                    return new BinSerializer();
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Конфигурационный файл поврежден. Исправьте и нажмите любую клавишу.");
-                    Console.ReadKey();
+                    option = File.ReadAllText("option.ini");
+                    if (option == "xml")
+                    {
+                        return new XMLSerializer();
+                    }
+                    else if (option == "bin")
+                    {
+                        return new BinSerializer();
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Конфигурационный файл поврежден. Исправьте и нажмите любую клавишу.");
+                        Console.ReadKey();
+                    }
                 }
             }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Конфигурационный файл не найден. Создать файл со значением xml нажмите 1, со значением bin - 2. ");
+                
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        File.WriteAllText("option.ini", "xml");
+                        return new XMLSerializer();
+                    case "2":
+                        File.WriteAllText("option.ini", "bin");
+                        return new BinSerializer();
+                    default:
+                        return null;
+                }
+            }
+
+
         }
     }
 }
