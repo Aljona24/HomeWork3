@@ -14,7 +14,7 @@ namespace HomeWork3
         ISerializable serializer;        
         public void ShowMenu()
         {
-            serializer = checkConfigurationFile();
+            serializer = CheckConfigurationFile();
             users = serializer.Read();
             while (true)
             {
@@ -140,7 +140,7 @@ namespace HomeWork3
                 }
             }
         }
-        private ISerializable checkConfigurationFile()
+        private ISerializable CheckConfigurationFile()
         {
             FileInfo fi = new FileInfo("option.ini");
 
